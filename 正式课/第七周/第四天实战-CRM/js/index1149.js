@@ -1,10 +1,23 @@
-/*
- * 在真实项目中我们可以使用以下的单例模式把我们的各功能进行封装,然后按照执行的先后顺序去执行,这样有助于项目后期的维护和升级
- */
-var indexRender = (function () {
+//->进入首页的第一件事情:从服务器端获取全部的客户信息,然后展示在页面中
+~function () {
     var customList = document.getElementById('customList');
+    ajax({
+        url: '/getAllList',
+        type: 'GET',
+        dataType: 'JSON',
+        success: function (result) {
+            if (result && result['code'] == 0) {
+                var data = result['data'];
 
-    //->bindHTML:数据绑定
+                //->数据绑定
+                bindHTML(data);
+
+                //->删除:事件委托
+                bindDelete();
+            }
+        }
+    });
+
     function bindHTML(data) {
         var str = '';
         for (var i = 0, len = data.length; i < len; i++) {
@@ -16,8 +29,7 @@ var indexRender = (function () {
             str += '<span class="w200">' + curData.phone + '</span>';
             str += '<span class="w200">' + curData.address + '</span>';
             str += '<span class="w150 control">';
-            //->点击修改的时候也依然跳转到DETAIL页面，但是和增加不同的是，我们需要把修改的客户的ID也传递过去，只有这样，在详细页我们才知道修改的是哪一个客户的信息
-            str += '<a href="detail.html?id=' + curData.id + '">修改</a>';
+            str += '<a href="">修改</a>';
             //->数据绑定的时候我们把客户的ID存储到元素的自定义属性上,这样以后在操作这个元素如果需要知道对应的客户ID，我们直接在自定义属性上获取即可(JS中自定义属性的解决方法是最伟大的一种编程思想)
             str += '<a href="javascript:;" data-id="' + curData.id + '">删除</a>';
             str += '</span>';
@@ -26,7 +38,6 @@ var indexRender = (function () {
         customList.innerHTML = str;
     }
 
-    //->bindDelete:绑定删除事件
     function bindDelete() {
         customList.onclick = function (e) {
             e = e || window.event;
@@ -50,28 +61,4 @@ var indexRender = (function () {
             }
         }
     }
-
-    return {
-        //->当前模块的入口,在入口中我们完成一些初始化和第一步要做的事情
-        init: function () {
-            //->第一步:获取数据
-            ajax({
-                url: '/getAllList',
-                type: 'GET',
-                dataType: 'JSON',
-                success: function (result) {
-                    if (result && result['code'] == 0) {
-                        var data = result['data'];
-
-                        //->第二步:绑定数据
-                        bindHTML(data);
-
-                        //->第三步:绑定事件
-                        bindDelete();
-                    }
-                }
-            });
-        }
-    }
-})();
-indexRender.init();
+}();
