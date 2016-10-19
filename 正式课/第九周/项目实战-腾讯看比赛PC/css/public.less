@@ -1,0 +1,17 @@
+/*编写的是公共的样式和组件*/
+@color-text: #555;
+@color-border: #DDD;
+@color-white: rgb(255, 255, 255);
+@color-blue: #346AFF;
+@color-blue-lighten: #EFF3FF;
+
+@box-width: 1040;
+
+/*CSS3过渡动画*/
+.transition(@property:all,@duration:1s,@time-function:linear,@delay:0s) {
+  -webkit-transition: @arguments;
+  -moz-transition: @arguments;
+  -ms-transition: @arguments;
+  -o-transition: @arguments;
+  transition: @arguments;
+}

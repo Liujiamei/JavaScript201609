@@ -1,0 +1,209 @@
+@import (reference) "public";
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+
+  color: @color-text;
+  font-size: 12px;
+  font-family: "\5FAE\8F6F\96C5\9ED1", Helvetica, sans-serif;
+  background: #F4F4F4;
+}
+
+a, a:hover, a:active {
+  color: @color-text;
+}
+
+/*--HEADER--*/
+.header {
+  @H: 63;
+  height: unit(@H, px);
+  background: @color-white;
+  border-bottom: 1px solid @color-border;
+
+  .box {
+    margin: 0 auto;
+    padding: 0 10px;
+    width: unit((@box-width)-20, px);
+    height: unit(@H, px);
+
+    .logo {
+      float: left;
+      margin-right: 60px;
+      width: 160px;
+      height: unit(@H, px);
+      background: url("../img/kbs-logo.png") no-repeat center center;
+      font-size: 0;
+    }
+
+    .nav {
+      float: left;
+      height: unit(@H, px);
+      line-height: unit(@H, px);
+      text-align: center;
+
+      a {
+        float: left;
+        width: 90px;
+        height: unit((@H)-8, px);
+        line-height: unit((@H)-8, px);
+        border-top: 4px solid transparent;
+        border-bottom: 4px solid transparent;
+        font-size: 16px;
+        font-weight: 700;
+
+        /*.nav a.bg*/
+        &.bg {
+          color: @color-white;
+          background: @color-blue;
+        }
+
+        /*.nav a:hover*/
+        &:hover {
+          border-top-color: @color-blue;
+        }
+
+        /*liveQQ*/
+        &.liveQQ {
+          width: unit(@H, px);
+          height: unit(@H, px);
+          text-align: center;
+          border-top: none;
+          border-bottom: none;
+          img {
+            display: inline-block;
+            width: 56px;
+            height: 56px;
+            vertical-align: middle;
+          }
+        }
+
+        /*downLoad*/
+        &.downLoad {
+          position: relative;
+
+          .weChat {
+            position: absolute;
+            top: unit((@H)-4, px);
+            left: -15px;
+            padding: 0 15px;
+            width: 90px;
+            height: 0;
+            overflow: hidden;
+            .transition(@duration: .3s);
+
+            img {
+              display: block;
+              width: 90px;
+              height: 90px;
+            }
+
+            p {
+              line-height: 20px;
+              font-size: 14px;
+              font-weight: normal;
+            }
+          }
+
+          .weChatBg {
+            .weChat;
+            background: @color-white;
+            opacity: .8;
+            filter: alpha(opacity=80);
+            /*filter: ~"alpha(opacity=80)";*/
+          }
+
+          &:hover {
+            .weChat, .weChatBg {
+              padding: 18px 15px;
+              height: 130px;
+            }
+          }
+        }
+      }
+    }
+
+    .login {
+      float: right;
+      margin-top: unit(((@H)-28)/2, px);
+      width: 46px;
+      height: 28px;
+      line-height: 28px;
+      text-align: center;
+      color: @color-white;
+      font-size: 12px;
+      background: @color-blue;
+      border-radius: 2px;
+
+      &:hover {
+        background: darken(@color-blue, 10%);
+      }
+    }
+  }
+}
+
+/*--CONTENT--*/
+.content {
+  margin: 20px auto;
+  width: unit(@box-width, px);
+  /*height: auto;->需要在JS中计算了:一屏幕的高度-HEADER区域的高度-MARGIN*/
+}
+
+/*MENU*/
+.menu {
+  width: 198px;
+  /*height: auto;->需要在JS中计算:CONTENT-2*/
+  background: @color-white;
+  border: 1px solid @color-border;
+  overflow: hidden;
+
+  .menuItem {
+    a {
+      display: block;
+      position: relative;
+      padding-left: 24px;
+      width: 169px;
+      height: 50px;
+      line-height: 50px;
+      border-left: 5px solid transparent;
+      font-size: 16px;
+
+      i, i:after {
+        display: none;
+        position: absolute;
+        right: 5px;
+        top: 19px;
+        width: 0;
+        height: 0;
+        font-size: 0;
+        border: 6px solid transparent;
+        border-left-color: @color-blue;
+      }
+
+      /*AFTER是往I容器的末尾追加一个虚拟的子元素*/
+      i:after {
+        right: -3px;
+        top: -6px;
+        content: '';
+        z-index: 1;
+        border-left-color: @color-blue-lighten;
+      }
+
+      &.bg, &:hover {
+        color: @color-blue;
+        background: @color-blue-lighten;
+        border-left-color: @color-blue;
+      }
+
+      &.bg {
+        i, i:after {
+          display: block;
+        }
+      }
+    }
+  }
+}
+
+
+
