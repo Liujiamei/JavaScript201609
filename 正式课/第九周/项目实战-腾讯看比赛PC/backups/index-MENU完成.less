@@ -53,15 +53,18 @@ a, a:hover, a:active {
         font-size: 16px;
         font-weight: 700;
 
+        /*.nav a.bg*/
         &.bg {
           color: @color-white;
           background: @color-blue;
         }
 
+        /*.nav a:hover*/
         &:hover {
           border-top-color: @color-blue;
         }
 
+        /*liveQQ*/
         &.liveQQ {
           width: unit(@H, px);
           height: unit(@H, px);
@@ -76,6 +79,7 @@ a, a:hover, a:active {
           }
         }
 
+        /*downLoad*/
         &.downLoad {
           position: relative;
 
@@ -143,6 +147,7 @@ a, a:hover, a:active {
 .content {
   margin: 20px auto;
   width: unit(@box-width, px);
+  /*height: auto;->需要在JS中计算了:一屏幕的高度-HEADER区域的高度-MARGIN*/
 }
 
 .iScrollIndicator {
@@ -155,8 +160,11 @@ a, a:hover, a:active {
   position: relative;
   float: left;
   width: 198px;
+  /*height: auto;->需要在JS中计算:CONTENT-2*/
   background: @color-white;
   border: 1px solid @color-border;
+  /*overflow-x: hidden;
+  overflow-y: auto;*/
   overflow: hidden;
 
   .menuItem {
@@ -182,6 +190,7 @@ a, a:hover, a:active {
         border-left-color: @color-blue;
       }
 
+      /*AFTER是往I容器的末尾追加一个虚拟的子元素*/
       i:after {
         right: -3px;
         top: -6px;

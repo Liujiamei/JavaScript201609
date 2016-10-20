@@ -65,6 +65,14 @@
    ->使用BORDER+TRANSFORM实现
 
 
+index.html?name=zf&age=8#ucl
+{
+   name:'zf',
+   age:8,
+   HASH:'ucl'
+}
+
+
 
 
 
