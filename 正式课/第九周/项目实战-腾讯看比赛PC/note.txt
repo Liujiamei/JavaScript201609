@@ -72,9 +72,65 @@ index.html?name=zf&age=8#ucl
    HASH:'ucl'
 }
 
+http://matchweb.sports.qq.com/kbs/calendar?callback=calendar&columnId=208
 
 
+6、使用EJS
+  ->导入EJS
 
+  ->制定模板:把我们需要动态绑定数据的HTML结构都放在模板中
+  <script type="text/template" id="calendarTemplate">
+      <a href="javascript:;" class="slide">
+          <span class="week">星期日</span>
+          <span class="date">09-25</span>
+      </a>
+  </script>
+
+  ->在模板中嵌套数据：假设我们模板中有一个数据,它是一个数组calendarData,数组中包含了我们需要的每一个时间区域的数据，我们可以先使用假设的值去做数据的嵌套，以后只需要把真实的数据按照假设的格式传递给模板就可以了
+  我们想在模板中写JS的话，只需要把JS代码写在<%%>中间即可
+  我们想在模板中输出一些东西，只需要把需要输出的内容放在<%=%>中间即可
+
+  <script type="text/template" id="calendarTemplate">
+      <%$.each(calendarData,function(index,item){%>
+          <a href="javascript:;" class="slide">
+              <span class="week"><%=item.weekday%></span>
+              <span class="date"><%=item.date%></span>
+          </a>
+      <%});%>
+  </script>
+
+  ->在JS中把真实的数据传递给模板
+    1)首先把模板中的内容都获取到
+      var $calendarTemplate = $('#calendarTemplate'),
+          templateText = $calendarTemplate.html();
+      console.log(templateText);
+      =>
+      <%$.each(calendarData,function(index,item){%>
+          <a href="javascript:;" class="slide">
+              <span class="week"><%=item.weekday%></span>
+              <span class="date"><%=item.date%></span>
+          </a>
+      <%});%>
+
+    2)把需要的数据准备好
+
+    3)使用EJS的相关方法render，把数据和内容结合到一起，EJS会把最后的结果返回，我们把最后的结果放到指定的容器中即可
+    var res = ejs.render(templateText, {calendarData: data});
+    console.log(res);
+    =>
+    <a href="javascript:;" class="slide">
+        <span class="week">星期二</span>
+        <span class="date">2016-06-14</span>
+    </a>
+
+    <a href="javascript:;" class="slide">
+        <span class="week">星期五</span>
+        <span class="date">2016-06-17</span>
+    </a>
+    ....
+
+
+http://matchweb.sports.qq.com/kbs/list?columnId=208&startTime=2016-09-25&endTime=2016-10-30
 
 
 
