@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训</title>
+    <link type="text/css" rel="stylesheet" href="css/reset.min.css"/>
+    <style type="text/css">
+        .box {
+            position: relative;
+            margin: 20px auto;
+            width: 300px;
+        }
+
+        #userAge {
+            display: block;
+            width: 80px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            border: 1px solid #CCC;
+        }
+
+        #rangeInp {
+            display: block;
+            margin-top: 5px;
+            width: 300px;
+        }
+    </style>
+</head>
+<body>
+<div class="box">
+    <input type="number" id="userAge" value="25" disabled/>
+    <input type="range" id="rangeInp" value="25" max="65" min="18" step="1"/>
+</div>
+<script type="text/javascript">
+    var userAge = document.getElementById('userAge'),
+            rangeInp = document.getElementById('rangeInp');
+    //rangeInp.oninput
+    rangeInp.addEventListener('input', function () {
+        userAge.value = this.value;
+    }, false);
+</script>
+</body>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <title>珠峰培训</title>
+    <link type="text/css" rel="stylesheet" href="css/reset.min.css"/>
+    <style type="text/css">
+        html {
+            font-size: 100px;
+        }
+
+        html, body, .cube {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .cube {
+            background: url("img/cube/zf_cubeBg.jpg") no-repeat center center;
+            background-size: cover;
+
+            perspective: 1000px;
+        }
+
+        .cubeBox, .cubeBox li {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin: -2.55rem 0 0 -2.55rem;
+            width: 5.1rem;
+            height: 5.1rem;
+        }
+
+        .cubeBox {
+            -webkit-transform-style: preserve-3d;
+            transform-style: preserve-3d;
+
+            -webkit-transform: scale(0.6) rotateX(-30deg) rotateY(45deg);
+            transform: scale(0.6) rotateX(-30deg) rotateY(45deg);
+
+            -webkit-transition: 1s;
+            transition: 1s;
+        }
+
+        .cubeBox li:nth-child(1) {
+            -webkit-transform: translateZ(2.55rem);
+            transform: translateZ(2.55rem);
+            background: url("img/cube/zf_cube1.png") no-repeat;
+            background-size: 100% 100%;
+        }
+
+        .cubeBox li:nth-child(2) {
+            -webkit-transform: translateZ(-2.55rem) rotateY(180deg);
+            transform: translateZ(-2.55rem) rotateY(180deg);
+            background: url("img/cube/zf_cube2.png") no-repeat;
+            background-size: 100% 100%;
+        }
+
+        .cubeBox li:nth-child(3) {
+            -webkit-transform: rotateY(90deg) translateZ(2.55rem);
+            transform: rotateY(90deg) translateZ(2.55rem);
+            background: url("img/cube/zf_cube3.png") no-repeat;
+            background-size: 100% 100%;
+        }
+
+        .cubeBox li:nth-child(4) {
+            /* -webkit-transform: translateX(2.55rem) rotateY(-90deg);
+             transform: translateX(2.55rem) rotateY(-90deg);*/
+            -webkit-transform: rotateY(-90deg) translateZ(2.55rem);
+            transform: rotateY(-90deg) translateZ(2.55rem);
+            background: url("img/cube/zf_cube4.png") no-repeat;
+            background-size: 100% 100%;
+        }
+
+        .cubeBox li:nth-child(5) {
+            -webkit-transform: rotateX(90deg) translateZ(2.55rem);
+            transform: rotateX(90deg) translateZ(2.55rem);
+            background: url("img/cube/zf_cube5.png") no-repeat;
+            background-size: 100% 100%;
+        }
+
+        .cubeBox li:nth-child(6) {
+            -webkit-transform: rotateX(-90deg) translateZ(2.55rem);
+            transform: rotateX(-90deg) translateZ(2.55rem);
+            background: url("img/cube/zf_cube6.png") no-repeat;
+            background-size: 100% 100%;
+        }
+    </style>
+
+    <!--REM-->
+    <script type="text/javascript">
+        document.documentElement.style.fontSize = document.documentElement.clientWidth / 640 * 100 + 'px';
+    </script>
+</head>
+<body>
+<section class="cube">
+    <ul class="cubeBox">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</section>
+
+<script type="text/javascript" src="js/zepto.min.js"></script>
+<script type="text/javascript">
+    var $cubeBox = $('.cubeBox');
+
+    //->随时记录当前盒子的旋转角度,让下一次的操作是在当前的角度基础上再次旋转的
+    $cubeBox.attr({
+        rotateX: -30,
+        rotateY: 45
+    });
+    $cubeBox.on('touchstart', function (ev) {
+        var point = ev.changedTouches[0];
+        $(this).attr({
+            strX: point.pageX,
+            strY: point.pageY,
+            changeX: 0,
+            changeY: 0
+        });
+    });
+    $cubeBox.on('touchmove', function (ev) {
+        var point = ev.changedTouches[0];
+        $(this).attr({
+            changeX: point.pageX - parseFloat($(this).attr('strX')),
+            changeY: point.pageY - parseFloat($(this).attr('strY'))
+        });
+    });
+    $cubeBox.on('touchend', function (ev) {
+        var changeX = parseFloat($(this).attr('changeX')),
+                changeY = parseFloat($(this).attr('changeY'));
+        var rotateX = parseFloat($(this).attr('rotateX')),
+                rotateY = parseFloat($(this).attr('rotateY'));
+        if (Math.abs(changeX) > 30 || Math.abs(changeY) > 30) {
+            //->肯定是滑动
+            rotateX = rotateX - changeY / 3;
+            rotateY = rotateY + changeX / 3;
+            $(this).attr({
+                rotateX: rotateX,
+                rotateY: rotateY
+            }).css('transform', 'scale(0.6) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg)');
+        }
+    });
+</script>
+</body>
+</html>

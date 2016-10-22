@@ -1,0 +1,96 @@
+CSS3 ->"图解CSS3"(大漠) http://www.w3cplus.com/
+HTML5->"HTML5秘籍(第二版)"
+
+1、HTML5中的表单
+  传统的表单元素:
+    form、input、select、textarea、label...
+    input:text、password、radio、checkbox、submit、reset、button、file、hidden...
+    事件:onfocus、onblur、onkeydown、onkeyup、onchange、onselect...
+
+  HTML5中新的表单元素
+    input:search、url、email、tel、number、range、time、date、color...
+    [优势]
+      ->功能强大：提供的属性中,有一些属性浏览器自带操作控件(例如:date、range..),这样就不需要我们自己在使用JS去开发了
+      ->方便输入：我们不使用新增加的属性，当用户输入的时候调取出来的都是默认统一的键盘，如果用户想输入邮箱，需要在符号、数字、英文键盘中来回的切换，不方便用户的使用；但是一但使用了新的类型，浏览器根据我们设定的类型，调取出最符合用户输入的键盘，例如:type='email'调取出来的键盘上既有数字也有英文也有@/.这些邮箱常用的内容；type='number'，调取出来的键盘就是纯数字的；
+      ->强大的表单验证：CSS3的伪类验证(可以在用户输入的过程中,通过改变元素的样式来进行提示)、JS中的checkValidity这个方法检测格式是否正确=>我们也可以使用自己写的正则进行验证
+      ->placeholder：对于input提供了placeholder这个强大的属性,可以在文本框中提示一些信息,但是这个属性不兼容IE浏览器(如果在PC端使用的话,我们需要针对于IE在去做一套)
+
+    [弊端]
+      不兼容IE低版本浏览器,并且基本上没有什么解决方案,所以这些新的类型基本上只有在移动端才会使用
+
+    [事件]
+      在移动端我们的键盘是虚拟的，很多的手机都不支持keydown/keyup事件，我们需要使用input事件来代替
+
+耿大大的日历控件开发视频:
+http://www.ablesky.com/org/510/course?categoryId=172300&cateLevel=2&serviceType=totalCourse&chargeType=0#orgTab
+
+
+2、hyBrid 混合式APP开发
+
+  APP:手机应用,例如:QQ、微信、浏览器...=>Native App 需要使用的技术:IOS系统需要使用OBJECT-C、安卓系统需要使用JAVA-NATIVE
+    [特点]
+      ->不可以跨平台,需要针对不同的系统使用不同的技术开发两套产品
+      ->Native App是直接的运行在手机的操作系统中的,基本上手机上的相关功能它否可以操作,例如：拍照、读取通信录、读取短信、获取地理位置、获取手机的重力感应实现摇一摇和相关的游戏...
+      ->Native App开发的产品性能体验等都非常的好
+      ->Native App更新需要用户的自主性选择,不能第一时间把最新的产品展示给用户
+
+  H5:其实就是一个HTML页面,我们需要把页面在手机的浏览器中或者其他的APP应用中(例如：微信)运行=>webApp
+    [特点]
+      ->可以跨平台,做出一套页面,在IOS和安卓手机上都可以访问
+      ->webApp是运行在手机的某一个应用中的(例如在浏览器中打开页面),不能直接的操作手机的内部功能,如果需要的话都是需要寄宿的环境提供相关的支持才可以
+      ->Web App开发的产品性能体验等都没有Native App好
+      ->Web App我们想更新就更新，用户看到的永远是最新的
+
+3、移动端事件
+  [PC]
+    click、mouseover(mouseenter)、mousemove、mouseout(mouseleave)、mousedown、mouseup、mousewheel、keydown、keyup...
+
+  [移动端]
+    我们的操作基本上都是靠手指完成的:单击、双击、长按、滑动、上滑、下滑、左滑、右滑、拖拽、缩放、旋转...但是这些都是常规的操作,移动端并没有提供对应的事件类型,所有的操作效果都是由接下来的几个事件类型模拟出来的
+    单手指事件类型：touchstart、touchmove、touchend、(touchcancle)
+    多手指事件类型：gesturestart、gesturechange、gestureend
+
+    单击
+      排除双击 300MS内是否触发第二次touchstart
+      排除长按 750MS内是手指是否离开了屏幕
+      排除滑动 手指在屏幕上是否发生了偏移,为了防止误操作,我们一般认为偏移值在30px/10px以内的不属于滑动
+
+    滑动方向
+      计算出X轴和Y轴的偏移值,如果changeX>changeY,说明是左右滑动,反之是上下滑动
+      假设是左右滑动,偏移值是负数,肯定是向左滑,偏移值是正数肯定向右滑,上下滑同理
+
+
+4、移动端的CLICK?
+   在移动端使用CLICK会存在300MS的延迟
+
+   ->解决300MS延迟的问题只能把CLICK替换为touchstart、touchmove、touchend，如果自己替换写代码很麻烦，我们可以使用fastclick.js来处理
+
+
+5、移动端事件操作常用的事件库
+   ->百度云的TOUCH手势事件库 touch-0.2.14.min.js
+   ->hammer.js 国际上常用的手势事件库
+   ->Zepto.js 做PC端如果需要类库我们第一个想到的是JQ，同样在移动端如果需要类库,第一个想到的就是ZEPTO
+
+   Zepto PK jQuery
+   ->Z比Q更小更轻量级,更适合移动端的使用 =>为什么会小?Z没有处理低版本浏览器的兼容,Z当中只提供了Q中部分常用的方法
+
+   ->Z在使用的时候它的用法和Q一模一样，
+
+   ->Z中的animate动画支持CSS3的transform变形
+
+   ->Z中提供了很多移动端专用的事件方法，这些方法都是使用TOUCH模型封装好的:tap点击、singleTap单击、doubleTap双击、longTap长按、swipe滑动、swipeLeft/Right/Down/Up各方向的滑动
+
+   $('#box').singleTap(function(ev){
+
+   });
+
+
+
+
+
+
+
+
+
+
+
